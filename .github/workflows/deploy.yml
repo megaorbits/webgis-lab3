@@ -1,3 +1,4 @@
+
 name: Publish dashboard
 
 on:
@@ -6,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -15,29 +16,32 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  recreate-and-publish:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Tear down old Pages site
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Verify website files
         run: |
-          gh api --method DELETE "/repos/${{ github.repository }}/pages/custom_domains/webgis-lab3.com" || true
-          gh api --method DELETE "/repos/${{ github.repository }}/pages" || true
-          sleep 8
-          gh api --method POST "/repos/${{ github.repository }}/pages" \
-            -f build_type=workflow || \
-          gh api --method PUT "/repos/${{ github.repository }}/pages" \
-            -f build_type=workflow -f cname=""
+          test -f index.html || {
+            echo "ERROR: index.html is missing from the repository root"
+            exit 1
+          }
+          ls -la
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
-      - id: deployment
+
+      - name: Deploy website
+        id: deployment
         uses: actions/deploy-pages@v4
