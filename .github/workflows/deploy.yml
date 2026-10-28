@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: Publish dashboard
 
 on:
   push:
@@ -6,28 +6,35 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: dashboard-site
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  recreate-and-publish:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Remove leftover custom domain
+
+      - name: Tear down old Pages site
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api --method DELETE "/repos/${{ github.repository }}/pages/custom_domains/webgis-lab3.com" || true
-          gh api --method PUT "/repos/${{ github.repository }}/pages" -F https_enforced=true -f cname="" || true
+          gh api --method DELETE "/repos/${{ github.repository }}/pages" || true
+          sleep 8
+          gh api --method POST "/repos/${{ github.repository }}/pages" \
+            -f build_type=workflow || \
+          gh api --method PUT "/repos/${{ github.repository }}/pages" \
+            -f build_type=workflow -f cname=""
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
