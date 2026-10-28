@@ -4,9 +4,9 @@
 **Student:** Muhammad Ahmad  
 **Roll number:** 538160  
 
-**Interactive web map:** [View the published Lab 3 dashboard](https://megaorbits.github.io/webgis-lab3/)  
+**Interactive web map:** [https://megaorbits.github.io/webgis-lab3/index.html](https://megaorbits.github.io/webgis-lab3/index.html)
 
-**GitHub repository:** [megaorbits/webgis-lab3](https://github.com/megaorbits/webgis-lab3)
+**GitHub repository:** [https://github.com/megaorbits/webgis-lab3](https://github.com/megaorbits/webgis-lab3)
 
 To run locally, serve the folder (`python -m http.server 8080`) so `data/districts.geojson` and `data/district_points.geojson` load. Canvas mode is `index.html?canvas`.
 
@@ -222,7 +222,7 @@ The layer control points at permanent `districtGroup` and `circleGroup` objects,
 
 ## Checkpoint 9: SVG Versus Canvas (Extension)
 
-Canvas mode is [`index.html?canvas`](https://megaorbits.github.io/webgis-lab3/?canvas) (`preferCanvas: true`). Default mode is SVG.
+Canvas mode is [https://megaorbits.github.io/webgis-lab3/index.html?canvas](https://megaorbits.github.io/webgis-lab3/index.html?canvas) (`preferCanvas: true`). Default mode is SVG.
 
 ### SVG mode — Elements panel
 
