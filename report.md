@@ -4,7 +4,7 @@
 **Student:** Muhammad Ahmad  
 **Roll number:** 538160  
 
-**Interactive web map:** [https://megaorbits.github.io/webgis-lab3/index.html](https://megaorbits.github.io/webgis-lab3/)
+**Interactive web map:** [https://megaorbits.github.io/webgis-lab3/](https://megaorbits.github.io/webgis-lab3/)
 
 **GitHub repository:** [https://github.com/megaorbits/webgis-lab3](https://github.com/megaorbits/webgis-lab3)
 
